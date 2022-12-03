@@ -154,9 +154,76 @@ def Day2_2():
 		i += 1
 
 	print("The total score is:", totalScore)
-	#5388 too low
+
+def Day3_1():
+    print("Day 1")
+    f = open("day3.txt", "r")
+    #f = open("test3.txt", "r")
+    lines = f.readlines()
+
+    front = []
+    back = []
+    for line in lines:
+        if line[-1] == '\n':
+            half = int((len(line) - 1) / 2)
+
+            front.append(line[0:half])
+            back.append(line[half:len(line)-1])
+        else:
+            half = int(len(line) / 2)
+            front.append(line[0:half])
+            back.append(line[half:len(line)])
 
 
+    
+    uncommon = []
+    i = 0
+    while i < len(front):
+        #Append the uncommon char between the two, as a string
+        uncommon.append(list(set(front[i]).intersection(back[i]))[0])
+        i += 1
+    print(uncommon)
 
-Day2_2()
-	
+    totalPriority = 0
+    for letter in uncommon:
+        if letter.islower():
+            number = ord(letter) - 96
+        else:
+            number = ord(letter) - 38
+        totalPriority += number
+    print(totalPriority)
+
+def Day3_2():
+    print("Day 1")
+    f = open("day3.txt", "r")
+    #f = open("test3.txt", "r")
+    lines = f.readlines()
+
+    rucksacks = []
+    for line in lines:
+        if line[-1] == '\n':
+            rucksacks.append(line[:-1])
+        else:
+            rucksacks.append(line)
+
+    i = 0
+    badges = []
+    while i < len(rucksacks) - 2:
+        intersection1 = set(rucksacks[i]).intersection(rucksacks[i + 1])
+        intersection2 = set(rucksacks[i]).intersection(rucksacks[i + 2])
+        badges.append(list(intersection1.intersection(intersection2))[0])
+        i += 3
+
+    print(badges)
+
+    totalPriority = 0
+    for letter in badges:
+        if letter.islower():
+            number = ord(letter) - 96
+        else:
+            number = ord(letter) - 38
+        totalPriority += number
+    print(totalPriority)
+
+Day3_2()
+
